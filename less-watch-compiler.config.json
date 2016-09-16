@@ -1,0 +1,9 @@
+{
+	"allowedExtensions":[".less"],
+	"minified":false,
+	"defaults": {
+		"watchFolder": "app",
+		"outputFolder": "app",
+		"mainFile": "main.less"
+	}
+}
