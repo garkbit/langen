@@ -1,6 +1,7 @@
 node_modules
 typings
 *.sublime-*
-app/*.js
-app/*.css
-app/*.map
+app/**/*.js
+app/**/*.css
+app/**/*.map
+npm-debug.log
