@@ -1,40 +1,58 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-export const INITIAL = 1234567890;
+const INITIAL = 0987654321;
 
 @Injectable()
 export class SeedService {
-	private val:number;
-	private history:number[] = [];
 
-	constructor() {
-		this.val = SeedService.hash(INITIAL);
-	}
+  private _history: number[] = [];
 
-	public get = () => {
-		this.history.push(this.val);
-		this.val = SeedService.hash(this.val);
-		return this.val;
-	}
+  public get history(): number[] {
+    return this._history;
+  }
 
-	public set = (val:number = INITIAL) => {
-		this.history.push(this.val);
-		this.val = SeedService.hash(val);
-	}
+  public set history(v: number[]) {
+    throw new Error("History cannot be set");
+  }
 
-	static hash = (input:number = INITIAL):number => {
+  private _seed: number;
 
-		let str = input.toString();
-		let hash = 0;
+  public get seed(): number {
+    let hash = SeedService.hash(this._seed);
+    this._history.push(hash);
+    this._seed = hash;
+    return this._seed;
+  }
 
-		for (var i = str.length - 1; i >= 0; i--) {
-			let chr = parseInt(str.charAt(i));
-			hash = ((hash << 5) - hash) + chr;
-			hash |= 0;
-		}
+  public set seed(v: number) {
+    if (v < 1) {
+      throw new Error("Seed value must be at least 10.");
+    } else if (parseInt(v.toString().charAt(v.toString().length - 1)) === 0) {
+      throw new Error("Seed value cannot end with a 0.");
+    } else if (this._seed !== INITIAL) {
+      throw new Error("Seed can only be set once.");
+    } else {
+      this._seed = v;
+    }
+  }
 
-		hash = Math.abs(hash);
+  constructor() {
+    this._seed = INITIAL;
+  }
 
-		return hash;
-	}
+  static hash = (input: number): number => {
+
+    let str = input.toString();
+    let hash = 0;
+
+    for (var i = str.length - 1; i >= 0; i--) {
+      let chr = parseInt(str.charAt(i));
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0;
+    }
+
+    hash = Math.abs(hash);
+
+    return hash;
+  }
 }

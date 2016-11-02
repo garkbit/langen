@@ -11,7 +11,7 @@
     "typings": "typings",
     "less": "less-watch-compiler"
   },
-  "author": "Aaron Nelson <anelson@control4.com> (http://www.control4.com)",
+  "author": "Aaron Nelson <nelson.aaronnelson@gmail.com> (http://garkbit.io)",
   "license": "ISC",
   "dependencies": {
     "@angular/common": "^2.0.0",
