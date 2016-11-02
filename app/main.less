@@ -2,4 +2,15 @@
 
 body {
 	background-color:@color;
+  padding: 0;
+  margin: 0;
+
+  canvas {
+    border: @border solid darken(@color, 10%);
+    margin-top: @margin - @border;
+    margin-left: @margin - @border;
+    // width: calc(100vw~"-"(@margin * 2));
+    // height: calc(100vh~"-"(@margin * 2));
+    background-color: tint(@color, 30%);
+  }
 }
